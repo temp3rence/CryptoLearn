@@ -89,8 +89,6 @@ The application reads `src/main/resources/application.properties`. Environment v
 
 When running Java directly on the host, the JDBC URL can be `jdbc:postgresql://localhost:5432/cryptolearn`. With Docker Compose, the application connects using the database service name: `jdbc:postgresql://db:5432/cryptolearn`.
 
-Keep `.env` out of Git. Commit only `.env.example` with placeholder values. Do not put real passwords in `Dockerfile`, `application.properties`, or Git history.
-
 ## HTTP API
 
 | Method | Endpoint | Description |
