@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>CryptoLearn / SafeBox</title>
+    <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <div>
+            <h1>CryptoLearn / SafeBox</h1>
+            <p class="subtitle">PBKDF2-HMAC-SHA256 → AES-256-GCM. Учебный SafeBox с REST API и PostgreSQL.</p>
+        </div>
+        <div class="session-panel">
+            <div class="session-label">Session ID</div>
+            <div id="sessionIdBox" class="session-value">…</div>
+        </div>
+    </header>
+
+    <main class="grid">
+        <!-- Левая колонка: шифрование -->
+        <section class="card">
+            <h2>Encrypt</h2>
+
+            <div class="field">
+                <label for="password" class="label">Password</label>
+                <input id="password" type="password" autocomplete="off" />
+            </div>
+
+            <div class="field">
+                <label for="filename" class="label">Filename (optional)</label>
+                <input id="filename" type="text" placeholder="hello.txt" />
+            </div>
+
+            <!-- Режим: текст -->
+            <div class="field">
+                <label for="plaintext" class="label">Plaintext (текстовый режим)</label>
+                <textarea id="plaintext" placeholder="Введите текст для шифрования"></textarea>
+            </div>
+
+            <div class="buttons">
+                <button id="btn-encrypt">Encrypt text →</button>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- Режим: файл -->
+            <div class="field">
+                <span class="label">File (бинарный режим)</span>
+                <input id="fileInput" type="file" />
+                <div class="hint">
+                    Файл будет прочитан целиком в память, закодирован в Base64 и зашифрован так же, как текст.
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="btn-encrypt-file">Encrypt file →</button>
+            </div>
+        </section>
+
+        <!-- Правая колонка: расшифровка -->
+        <section class="card">
+            <h2>Decrypt</h2>
+
+            <div class="field">
+                <label for="encrypted" class="label">Encrypted .enc (base64)</label>
+                <textarea id="encrypted" placeholder="Сюда попадает шифротекст .enc в base64"></textarea>
+            </div>
+
+            <div class="buttons">
+                <button id="btn-decrypt">← Decrypt to text</button>
+                <button id="btn-decrypt-file">← Decrypt & download file</button>
+            </div>
+
+            <div class="field">
+                <label class="label">Result plaintext (текстовый предпросмотр)</label>
+                <textarea id="plaintext-preview" readonly placeholder="Расшифрованный текст (read-only предпросмотр)"></textarea>
+            </div>
+        </section>
+    </main>
+
+    <section class="card card-wide">
+        <div class="card-row">
+            <div class="card-block">
+                <h3>Status / Debug</h3>
+                <pre id="status"></pre>
+            </div>
+
+            <div class="card-block">
+                <h3>Last operations (server view)</h3>
+                <div class="toolbar">
+                    <button id="btn-history">Load history</button>
+                </div>
+                <pre id="historyBox"></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="card card-wide">
+        <div class="card-row">
+            <div class="card-block">
+                <h3>Admin summary</h3>
+                <div class="toolbar">
+                    <button id="btn-admin-summary">Load summary</button>
+                </div>
+                <pre id="adminSummaryBox"></pre>
+            </div>
+            <div class="card-block help-text">
+                <h4>Кратко про режимы</h4>
+                <ul>
+                    <li><strong>Text:</strong> plaintext шифруется как строка; удобно видеть результат глазами.</li>
+                    <li><strong>File:</strong> файл читается как байты → Base64 → шифруется так же, как текст.</li>
+                    <li>На сервере нет разницы между текстом и файлом — всегда шифруются байты.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="/static/app.js" defer></script>
+</body>
+</html>
